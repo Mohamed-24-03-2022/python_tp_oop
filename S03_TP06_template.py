@@ -275,69 +275,45 @@ if __name__ == '__main__':
                                [0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0],
                                [0, 0, 0, 0, 0, 0, 0]]
-    print('test 1 ok')
     assert GRID_RANDOM_TEST == [[1, 0, 1, 1, 0, 1, 0],
                                 [1, 0, 0, 0, 1, 1, 0],
                                 [1, 0, 1, 0, 0, 1, 0],
                                 [1, 1, 0, 0, 1, 0, 0],
                                 [0, 1, 0, 1, 0, 0, 1]]
-    print('test 2 ok')
 
     assert get_lines_count(GRID_RANDOM_TEST), get_columns_count(GRID_RANDOM_TEST) == (
         LINES_COUNT_TEST, COLUMNS_COUNT_TEST)
-    print('test 3,4 ok')
-
     assert get_line_str(GRID_RANDOM_TEST, 2) == "1\t0\t1\t0\t0\t1\t0"
-    print('test 5 ok')
     assert get_grid_str(
         GRID_RANDOM_TEST, '') == "1011010\n1000110\n1010010\n1100100\n0101001"
-    print('test 6 ok')
     assert get_line(GRID_RANDOM_TEST, LINE_NUMBER_TEST) == [
         1, 0, 0, 0, 1, 1, 0]
     assert get_column(GRID_RANDOM_TEST, COLUMN_NUMBER_TEST) == [0, 0, 0, 0, 1]
-    print('test 7 ok')
-
     assert get_diagonal(GRID_RANDOM_TEST) == [1, 0, 1, 0, 0]
-    print('test 8 OK')
     assert get_anti_diagonal(GRID_RANDOM_TEST) == [0, 1, 0, 0, 0]
-    print('test 9 OK')
     assert has_equal_values(GRID_CONST_TEST, GRID_CONST_TEST[0][0])
     assert not has_equal_values(GRID_RANDOM_TEST, GRID_RANDOM_TEST[0][0])
-    print('test 10 OK')
-
     assert not is_square(GRID_RANDOM_TEST)
-    print('test 11 OK')
-
     assert get_count(GRID_RANDOM_TEST, 1) == get_sum(GRID_RANDOM_TEST) == 16
-    print('test 12, 13 OK')
-
     assert get_coordinates_from_cell_number(GRID_RANDOM_TEST, 13) == (
         LINE_NUMBER_TEST, COLUMN_NUMBER_TEST)
-    print('test 14 ok')
     assert get_cell_number_from_coordinates(
         GRID_RANDOM_TEST, LINE_NUMBER_TEST, COLUMN_NUMBER_TEST) == 13
-    print('test 15 OK')
     assert get_cell(GRID_RANDOM_TEST, 9) == 0
-    print('test 16 OK')
     set_cell(GRID_RANDOM_TEST, 9, 1)
     assert get_cell(GRID_RANDOM_TEST, 9) == 1
-    print('test 17 OK')
     assert get_same_value_cell_numbers(GRID_RANDOM_TEST, 1) == [0, 2, 3, 5, 7, 9, 11, 12, 14, 16, 19, 21, 22, 25, 29,
                                                                 31,
                                                                 34]
-    print('TEST 18 OK')
     assert get_neighbour(GRID_RANDOM_TEST, LINE_NUMBER_TEST,
                          COLUMN_NUMBER_TEST, DIRECTION_TEST, IS_TORE_TEST) == 1
     assert not get_neighbour(GRID_RANDOM_TEST, LINE_NUMBER_TEST,
                              COLUMN_NUMBER_TEST, DIRECTION_TEST, not IS_TORE_TEST)
-    print('TEST 19 oK')
     assert get_neighborhood(GRID_RANDOM_TEST, LINE_NUMBER_TEST, COLUMN_NUMBER_TEST, WIND_ROSE, IS_TORE_TEST) == [0, 1,
                                                                                                                  1,
                                                                                                                  1, 0,
                                                                                                                  1,
                                                                                                                  1, 1]
-    print('TEST 19 oK')
-
     assert get_neighborhood(GRID_RANDOM_TEST, LINE_NUMBER_TEST, COLUMN_NUMBER_TEST, WIND_ROSE, not IS_TORE_TEST) == [0,
                                                                                                                      None,
                                                                                                                      None,
