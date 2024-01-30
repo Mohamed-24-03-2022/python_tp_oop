@@ -121,11 +121,11 @@ def is_square(grid):
     lines = 0
     cols = 0
     for line in range(len(grid)):
-        lines += 1
         for col in range(len(grid[line])):
             cols += 1
+        lines += 1
 
-    return True if lines == cols else False
+    return True if lines == (cols / lines) else False
 
 
 def get_count(grid, value):
@@ -160,12 +160,11 @@ def get_coordinates_from_cell_number(grid, cell_number):
         col = 0
         for _ in range(len(grid[l])):
             if i == cell_number:
-                #     break
-                return (line, col)
+                break
             col += 1
             i += 1
-        # if i == cell_number:
-        #     break
+        if i == cell_number:
+            break
 
         line += 1
 
@@ -221,14 +220,10 @@ def get_neighbour(grid, line_number, column_number, delta, is_tore=True):
     grid[line_number + delta_line, column_number + delta_column].
     Si 'is_tore' est à 'True' le voisin existe toujours en considérant 'grid' comme un tore.
     Si 'is_tore' est à 'False' retourne 'None' lorsque le voisin est hors de la grille 'grid'."""
-    if (not is_tore):
-        return None
 
-    col = column_number - delta[1]
-    if (column_number - delta[1] >= get_columns_count(grid)):
-        col = column_number + delta[1]
-
-    return grid[line_number + delta[0]][col]
+    print(delta)
+    delta_line = delta[0]
+    delta_column = delta[1]
 
 
 def get_neighborhood(grid, line_number, column_number, deltas, is_tore=True):
@@ -237,11 +232,7 @@ def get_neighborhood(grid, line_number, column_number, deltas, is_tore=True):
     Si 'is_tore' est à 'True' le voisin existe toujours en considérant 'grid' comme un tore.
     Si 'is_tore' est à 'False' un voisin hors de la grille 'grid' n'est pas considéré."""
     neighborhood = []
-    # print(len(grid), get_columns_count(grid))
-    for delta in deltas:
-        neighborhood.append(get_neighbour(grid, line_number,
-                                          column_number, delta, is_tore))
-    print(neighborhood)
+
     return neighborhood
 
 
