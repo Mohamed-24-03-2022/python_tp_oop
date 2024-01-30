@@ -221,9 +221,17 @@ def get_neighbour(grid, line_number, column_number, delta, is_tore=True):
     Si 'is_tore' est à 'True' le voisin existe toujours en considérant 'grid' comme un tore.
     Si 'is_tore' est à 'False' retourne 'None' lorsque le voisin est hors de la grille 'grid'."""
 
-    print(delta)
-    delta_line = delta[0]
-    delta_column = delta[1]
+    if (is_tore):
+        if (column_number + delta[1] <= get_columns_count(grid) - 1):
+            return grid[line_number + delta[0]][column_number + delta[1]]
+        elif (column_number + delta[1] > get_columns_count(grid) - 1):
+            return grid[line_number + delta[0]][0]
+
+    elif (not is_tore):
+        if (column_number + delta[1] <= get_columns_count(grid) - 1):
+            return grid[line_number + delta[0]][column_number + delta[1]]
+        elif (column_number + delta[1] > get_columns_count(grid) - 1):
+            return None
 
 
 def get_neighborhood(grid, line_number, column_number, deltas, is_tore=True):
@@ -232,6 +240,9 @@ def get_neighborhood(grid, line_number, column_number, deltas, is_tore=True):
     Si 'is_tore' est à 'True' le voisin existe toujours en considérant 'grid' comme un tore.
     Si 'is_tore' est à 'False' un voisin hors de la grille 'grid' n'est pas considéré."""
     neighborhood = []
+    for delta in deltas:
+        neighborhood.append(get_neighbour(
+            grid, line_number, column_number, delta, is_tore))
 
     return neighborhood
 

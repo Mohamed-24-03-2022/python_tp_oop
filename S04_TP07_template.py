@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 import random
-from S03_TP06_template import *
 
 
 class Grid:
@@ -63,7 +62,7 @@ class Grid:
         """ Retourne la chaine de caractère correspondant à la concaténation des valeurs de la ligne numéro
         'line_number' de la grille. Les caractères sont séparés par le caractère 'separator'."""
         string = ''
-        for i, value in enumerate(get_line(self.grid, line_number)):
+        for i, value in enumerate(self.get_line(line_number)):
             if i+1 == len(self.grid[line_number]):
                 string += f'{value}'
             else:
@@ -77,7 +76,7 @@ class Grid:
         string = ''
 
         for line in range(len(self.grid)):
-            for value in get_line(self.grid, line):
+            for value in self.get_line(line):
                 string += f'{value}'
 
             if line+1 < len(self.grid):
@@ -163,13 +162,13 @@ class Grid:
 
     def get_cell(self, cell_number):
         """ Extrait la valeur de la grille en position 'cell_number'."""
-        line, col = get_coordinates_from_cell_number(self.grid, cell_number)
+        line, col = self.get_coordinates_from_cell_number(cell_number)
 
         return self.grid[line][col]
 
     def set_cell(self, cell_number, value):
         """ Positionne la valeur 'value' dans la case 'cell_number' de la grille."""
-        line, col = get_coordinates_from_cell_number(self.grid, cell_number)
+        line, col = self.get_coordinates_from_cell_number(cell_number)
         self.grid[line][col] = value
 
     def get_same_value_cell_numbers(self, value):
@@ -190,14 +189,31 @@ class Grid:
         voisine est alors (ligne + delta_ligne, colonne + delta_colonne).
                 Si 'is_tore' est à 'True' le voisin existe toujours en considérant la grille comme un tore.
                 Si 'is_tore' est à 'False' retourne 'None' lorsque le voisin est hors de la grille."""
-        pass
+        grid = self.grid
+
+        if (is_tore):
+            if (column_number + delta[1] <= len(grid[0]) - 1):
+                return grid[line_number + delta[0]][column_number + delta[1]]
+            elif (column_number + delta[1] > len(grid[0]) - 1):
+                return grid[line_number + delta[0]][0]
+
+        elif (not is_tore):
+            if (column_number + delta[1] <= len(grid[0]) - 1):
+                return grid[line_number + delta[0]][column_number + delta[1]]
+            elif (column_number + delta[1] > len(grid[0]) - 1):
+                return None
 
     def get_neighborhood(self, line_number, column_number, deltas, is_tore=True):
         """ Retourne la liste des N voisins de la position ('lins_number', 'column_number') dans la grille correspondant
          aux N 2-uplet (delta_ligne, delta_colonne) fournis par la liste deltas.
                 Si 'is_tore' est à 'True' le voisin existe toujours en considérant la grille comme un tore.
                 Si 'is_tore' est à 'False' un voisin hors de la grille n'est pas considéré."""
-        pass
+        neighborhood = []
+        for delta in deltas:
+            neighborhood.append(self.get_neighbour(
+                line_number, column_number, delta, is_tore))
+
+        return neighborhood
 
 
 if __name__ == '__main__':
