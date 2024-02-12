@@ -164,8 +164,8 @@ if __name__ == '__main__':
     # LSystem tests
     AXIOM_TEST = 'fx'
     RULES_TEST = {'f': '', 'x': '-fx++fy-', 'y': '+fx--fy+'}
-
-    assert LSystem(AXIOM_TEST, RULES_TEST).generate(
-        3) == '---fx++fy-+++fx--fy+-+++-fx++fy---+fx--fy++-'
-
+    ls = LSystem(AXIOM_TEST, RULES_TEST)
+    assert ls.get_current_word() == AXIOM_TEST
+    assert ls.generate(3) == '---fx++fy-+++fx--fy+-+++-fx++fy---+fx--fy++-'
+    assert ls.get_current_word() == '---fx++fy-+++fx--fy+-+++-fx++fy---+fx--fy++-'
     print('Tests all OK')
