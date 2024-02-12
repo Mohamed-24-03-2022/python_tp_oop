@@ -292,6 +292,7 @@ if __name__ == "__main__":
     farm.populate(stray_dog)
 
     # test farm.get_talk()
+    # rstrip() method to remvoe all whitespace
     expected_string_output = 'Les 5 habitants de la ferme Fermarcel se retrouvent :\nMarcel junior Duchamps Zpola : Bonjour\nMarcela Zpola : Dzień dobry\nAglaë : Meuh\nMédor : Grrr\nMarcel Robert Duchamps : Bonjour'
     actual_output_shuffeled = farm.get_talk().rstrip().split('\n')
     actual_output_sorted = sorted(actual_output_shuffeled)
