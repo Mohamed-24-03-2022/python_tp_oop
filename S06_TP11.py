@@ -79,14 +79,12 @@ if __name__ == '__main__':
         for _ in range(letter_count):
             free_place = PLANET_TEST.get_random_free_place()
             PLANET_TEST.born(free_place, letter)
-
     print(PLANET_TEST)
 
     for letter, letter_count in RESOURCES_TEST.items():
         for _ in range(letter_count):
             free_place = PLANET_TEST.get_random_free_place()
             PLANET_TEST.born(free_place, letter)
-
     print(PLANET_TEST)
 
     print(PLANET_TEST.get_neighbour(0, 0, PlanetAlpha.NORTH_WEST))
