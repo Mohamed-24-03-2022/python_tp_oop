@@ -194,9 +194,9 @@ class Dog:
 
     def get_info(self):
         """ Retourne la chaine de caractère indiquant toutes les informations """
-        state = 'colère' if (self.__owner) else 'cool'
+        state = 'colère' if (self.__state) else 'cool'
 
-        if (self.__owner):
+        if (self.__state):
             return f"{self.__nickname} : dog en {state}. Appartient à {self.__owner.get_full_name()}."
 
         return f"{self.__nickname} : dog {state}. N'a pas de propriétaire."

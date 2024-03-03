@@ -122,15 +122,58 @@ class Human:
         return salutation
 
 
-class Cow:
-    def __init__(self, nickname, weight, owner):
-        """Constructor de la classe Cow
-        - attribut 'nickname" initialisé par la chaine de caractère du paramètre 'nickname'
-        - attribut 'weight' initialisé par le réel du paramètre 'weight"
-        - attribut 'owner' initialisé par un objet Human du paramètre 'owner'
-        """
+class French(Human):
+    __french_count = 0
+
+    def __init__(self, first_names, last_name):
+        Human.__init__(self, first_names, last_name, 'fr', 'Bonjour')
+        French.__french_count += 1
+
+    def get_shout(self):
+        return f'Je m’appelle {self.get_full_name()} et j’ai la nationalité française. {self.get_greetings()} !'
+
+
+class Portuguese(Human):
+    __portuguese_count = 0
+
+    def __init__(self, first_names, last_name):
+        Human.__init__(self, first_names, last_name, 'PT', 'Bon dia')
+        Portuguese.__portuguese_count += 1
+
+    def get_shout(self):
+        return f'Je m’appelle {self.get_full_name()} et j’ai la nationalité portugaise. {self.get_greetings()} !'
+
+
+class English(Human):
+    __english_count = 0
+
+    def __init__(self, first_names, last_name):
+        Human.__init__(self, first_names, last_name, 'EN', 'Hello')
+        English.__english_count += 1
+
+    def get_shout(self):
+        return f'Je m’appelle {self.get_full_name()} et j’ai la nationalité anglaise. {self.get_greetings()} !'
+
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#
+
+
+class Animal:
+    def __init__(self, nickname, owner):
         self.__nickname = nickname
-        self.__weight = weight
         self.__owner = owner
 
     def get_nickname(self):
@@ -139,15 +182,32 @@ class Cow:
     def set_nickname(self, nickname):
         self.__nickname = nickname
 
-    def get_weight(self):
-        return self.__weight
-
     def get_owner(self):
         return self.__owner
 
-    def get_info(self):
-        """ Retourne la chaine de caractère indiquant toutes les informations """
-        return f'{self.__nickname} : cow de {self.__weight} Kg. Appartient à {self.__owner.get_full_name()}.'
+    def take_owner(self, owner):
+        """ désigne l'objet Human 'owner' comme propriétaire """
+        self.__owner = owner
+
+    def __repr__(self):
+        if (self.__owner):
+            return f"{self.get_nickname()} appartient à {self.__owner.get_full_name()}."
+        else:
+            return f"{self.get_nickname()} n'a pas de propriétaire."
+
+
+class Cow(Animal):
+    def __init__(self, nickname, weight, owner):
+        """Constructor de la classe Cow
+        - attribut 'nickname" initialisé par la chaine de caractère du paramètre 'nickname'
+        - attribut 'weight' initialisé par le réel du paramètre 'weight"
+        - attribut 'owner' initialisé par un objet Human du paramètre 'owner'
+        """
+        Animal.__init__(self, nickname, owner)
+        self.__weight = weight
+
+    def get_weight(self):
+        return self.__weight
 
     def gain_weight(self, weight=1):
         """ ajoute le réel 'weight' au poids """
@@ -157,49 +217,32 @@ class Cow:
         """ retire le réel 'weight' au poids """
         self.__weight -= weight
 
-    def take_owner(self, owner):
-        """ désigne l'objet Human 'owner' comme propriétaire """
-        self.__owner = owner
+    def get_info(self):
+        """ Retourne la chaine de caractère indiquant toutes les informations """
+        return f'{self.get_nickname()} : cow de {self.get_weight()} Kg. Appartient à {self.get_owner().get_full_name()}.'
 
     def get_shout(self):
         """ Retourne la chaine de caractère 'Meuh'"""
         return 'Meuh'
 
+    def __repr__(self):
+        return super().__repr__() + f" C'est une vache de {self.get_weight()} Kg."
 
-class Dog:
+
+class Dog(Animal):
     def __init__(self, nickname, owner=None, state=0):
         """Constructor de la classe Dog
         - attribut 'nickname" initialisé par la chaine de caractère du paramètre 'nickname'
         - attribut 'owner' initialisé par un objet Human ou None du paramètre 'owner'
         - attribut 'state' initialisé par la valeur 0 ou 1 du paramètre 'state'"
         """
-        self.__nickname = nickname
-        self.__owner = owner
-
+        Animal.__init__(self, nickname, owner)
         if state not in (0, 1):
             raise ValueError('State must be 0 or 1')
         self.__state = state
 
-    def get_nickname(self):
-        return self.__nickname
-
-    def set_nickname(self, nickname):
-        self.__nickname = nickname
-
-    def get_owner(self):
-        return self.__owner
-
     def get_state(self):
         return self.__state
-
-    def get_info(self):
-        """ Retourne la chaine de caractère indiquant toutes les informations """
-        state = 'colère' if (self.__owner) else 'cool'
-
-        if (self.__owner):
-            return f"{self.__nickname} : dog en {state}. Appartient à {self.__owner.get_full_name()}."
-
-        return f"{self.__nickname} : dog {state}. N'a pas de propriétaire."
 
     def swap_state(self):
         """ inverse l'état"""
@@ -208,15 +251,53 @@ class Dog:
         else:
             self.__state = 1
 
-    def take_owner(self, owner):
-        """ désigne l'objet Human 'owner' comme propriétaire """
-        self.__owner = owner
+    def get_info(self):
+        """ Retourne la chaine de caractère indiquant toutes les informations """
+        state = 'colère' if (self.__state) else 'cool'
+
+        if (self.__state):
+            return f"{self.get_nickname()} : dog en {state}. Appartient à {self.get_owner().get_full_name()}."
+
+        return f"{self.get_nickname()} : dog {state}. N'a pas de propriétaire."
 
     def get_shout(self):
         """ Retourne la chaine de caractère 'Ouah ouah' ou 'Grrr' selon l'état"""
         if (self.__state):
             return 'Grrr'
         return 'Ouah ouah'
+
+    def __repr__(self):
+        r = 'en colère' if (self.__state) else 'cool'
+        return super().__repr__() + f" C'est un chien {r}."
+
+
+class Chicken(Animal):
+    def __init__(self, nickname, sex=random.randint(0, 1), owner=None):
+        Animal.__init__(self, nickname, owner)
+        self.__sex = sex
+
+    def get_sex(self):
+        return self.__sex
+
+    def get_info(self):
+        r = "coquelet" if (self.__sex) else "poulette"
+        return f"{self.get_nickname()} : {r}. Appartient à {self.get_owner().get_full_name()}."
+
+    def get_shout(self):
+        if (self.__sex):
+            return 'Cocorico'
+        return 'cot cot cot'
+
+    def __repr__(self):
+        r = "coquelet" if (self.__sex) else "poulette"
+        return super().__repr__() + f" C'est une {r}."
+
+
+class Cat(Animal):
+    def get_shout(self):
+        if (self.get_owner()):
+            return "Ronron"
+        return "Miaou"
 
 
 if __name__ == "__main__":
@@ -258,27 +339,7 @@ if __name__ == "__main__":
     assert stray_dog.get_info(
     ) == "Médor : dog en colère. Appartient à Marcel junior Duchamps Zpola."
     assert stray_dog.get_shout() == 'Grrr'
-
-    #!_____ cour: ___________________________________________________________________________
-    # attribute d'instance => can be private or public
-
-    # attribute de class
-    # Human.__humans_count
-    # boy.__humans_count
-
-    # method d'instances
-    assert boy.get_info() == 'Identité : Marcel junior Duchamps Zpola - Nationalité : FR - Age : 3 ans (mineur)'
-    assert boy.get_full_name() == 'Marcel junior Duchamps Zpola'
-
-    # method de class : manipule uniquement les attribute de class
-    assert boy.get_humans_count() == 3
-
-    # method statique : ne depend pas d'instance
-    assert Human.statique() == 'method statique'
-
-    # accesseur ecriture / lecture => setter / getter
-    # ! ____________________________________________________________________________________
-
+# ___________________________________________________________________________________________________________________________________
     try:
         Dog("Spike", state=3)
         assert False
@@ -301,5 +362,35 @@ if __name__ == "__main__":
     assert boy.get_nationality_greetings() == {}
     boy.add_nationality_greetings('fr', 'Bonjour')
     assert boy.get_nationality_greetings() == {'fr': 'Bonjour'}
+
+# ___________________________________________________________________________________________________________________________________
+    #! inheritence / aggregation / strong compostition
+
+    farming_couple = (French(["Marcel", "Robert"], "Duchamps"), Portuguese(
+        ["Marcela"], "Delcampos"))
+    english_tenant_farmer = English(["Singlet"], "Fromfield")
+    assert farming_couple[0].get_shout(
+    ) == 'Je m’appelle Marcel Robert Duchamps et j’ai la nationalité française. Bonjour !'
+    assert farming_couple[1].get_shout(
+    ) == 'Je m’appelle Marcela Delcampos et j’ai la nationalité portugaise. Bon dia !'
+    assert english_tenant_farmer.get_shout(
+    ) == 'Je m’appelle Singlet Fromfield et j’ai la nationalité anglaise. Hello !'
+
+    stray_dog = Dog("Médor", state=1)
+    milk_cow = Cow("Agléa", 300, english_tenant_farmer)
+    assert stray_dog.__repr__() == "Médor n'a pas de propriétaire. C'est un chien en colère."
+    assert milk_cow.__repr__(
+    ) == "Agléa appartient à Singlet Fromfield. C'est une vache de 300 Kg."
+
+    pullet = Chicken("Cocotte", 0, farming_couple[0])
+    cockerel = Chicken("Roadkill", 1, farming_couple[1])
+    chaty = Cat("roxy", farming_couple[0])
+
+    assert pullet.__repr__() == "Cocotte appartient à Marcel Robert Duchamps. C'est une poulette."
+    assert cockerel.__repr__() == "Roadkill appartient à Marcela Delcampos. C'est une coquelet."
+    assert chaty.get_shout() == "Ronron"
+
+    farm.populate(pullet)
+    farm.populate(cockerel)
 
     print("Tests all OK")

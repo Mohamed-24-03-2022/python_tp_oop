@@ -25,39 +25,38 @@ class PlanetAlpha(Grid):
         return self.__ground
 
     def get_random_free_place(self):
-        list = Grid.get_same_value_cell_numbers(self, self.__ground)
+        list = self.get_same_value_cell_numbers(self.__ground)
         if (len(list) == 0):
             return -1
         return random.choice(list)
 
     def born(self, cell_number, element):
-        line, col = Grid.get_coordinates_from_cell_number(self, cell_number)
-        grid = Grid.get_grid(self)
+        line, col = self.get_coordinates_from_cell_number(cell_number)
+        grid = self.get_grid()
         if (grid[line][col] == self.__ground):
-            Grid.set_cell(self, cell_number, element)
+            self.set_cell(cell_number, element)
             return 1
         return 0
 
     def die(self, cell_number):
-        cell = Grid.get_cell(self, cell_number)
+        cell = self.get_cell(cell_number)
         if (cell != self.__ground):
-            Grid.set_cell(self, cell_number, self.__ground)
+            self.set_cell(cell_number, self.__ground)
             return 1
         return 0
 
     def __repr__(self):
-        inhabitants_number = len(Grid.get_same_value_cell_numbers(
-            self, self.__ground))
-        cells_number = Grid.get_lines_count(
-            self) * Grid.get_columns_count(self)
+        inhabitants_number = len(
+            self.get_same_value_cell_numbers(self.__ground))
+        cells_number = self.get_lines_count() * self.get_columns_count()
 
         habitants_list = cells_number - inhabitants_number
 
         string = f'{self.__name} ({habitants_list} habitants)\n'
 
-        for l in range(Grid.get_lines_count(self)):
-            for c in range(Grid.get_columns_count(self)):
-                string += Grid.get_grid(self)[l][c]
+        for l in range(self.get_lines_count()):
+            for c in range(self.get_columns_count()):
+                string += self.get_grid()[l][c]
             string += '\n'
 
         return string
@@ -101,3 +100,5 @@ if __name__ == '__main__':
     print(PLANET_TEST)
 
     print(PLANET_TEST. get_neighborhood(0, 0, PlanetAlpha .WIND_ROSE))
+
+    print("ALL TESTS OK")
