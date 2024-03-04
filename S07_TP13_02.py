@@ -1,8 +1,6 @@
 import tkinter as tk
 
 class AppBase(tk.Tk):
-    
-
     def __init__(self, title, width, height, pos_x, pos_y):
         tk.Tk.__init__(self)
         self.title(title)
@@ -11,10 +9,10 @@ class AppBase(tk.Tk):
         self.__f_main = tk.Frame(self)
         self.__f_main.pack()
         
-        self.__c_draw = canvas = tk.Canvas(self.__f_main, background='white')
+        self.__c_draw = tk.Canvas(self.__f_main, background='white')
         self.__c_draw.pack()
 
-        self.__b_quit = tk.Button(self, text="Click me", command=self.quit)
+        self.__b_quit = tk.Button(self, text="Close", command=self.quit)
         self.__b_quit.pack(side=tk.RIGHT)
 
 

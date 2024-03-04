@@ -23,7 +23,7 @@ if __name__ == "__main__":
     canvas.pack()
 
     # crate an exit button
-    button = tk.Button(myApp, text="Click me", command=myApp.quit)
+    button = tk.Button(myApp, text="Close", command=myApp.quit)
     button.pack(side=tk.RIGHT)
 
     # lunch the app
