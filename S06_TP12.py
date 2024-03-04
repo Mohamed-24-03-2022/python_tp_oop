@@ -339,7 +339,7 @@ if __name__ == "__main__":
     assert stray_dog.get_info(
     ) == "Médor : dog en colère. Appartient à Marcel junior Duchamps Zpola."
     assert stray_dog.get_shout() == 'Grrr'
-# ___________________________________________________________________________________________________________________________________
+
     try:
         Dog("Spike", state=3)
         assert False
