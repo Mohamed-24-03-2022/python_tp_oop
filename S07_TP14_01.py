@@ -84,6 +84,26 @@ class Animal(Element):
         self.__current_direction = [line_direction, column_direction]
 
 
+class Cow(Animal):
+    def __init__(self):
+        Animal.__init__(self, '\U0001F42E', 5)
+
+
+class Dragon(Animal):
+    def __init__(self):
+        Animal.__init__(self, '\U0001F432', 20)
+
+
+class Lion(Animal):
+    def __init__(self):
+        Animal.__init__(self, '\U0001F981', 10)
+
+
+class Mouse(Animal):
+    def __init__(self):
+        Animal.__init__(self, '\U0001F42D', 3)
+
+
 if (__name__ == "__main__"):
     print(Ground(), str(Ground()))
     print(Ground() == str(Ground()))
