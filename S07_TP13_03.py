@@ -21,10 +21,11 @@ class MyApp(tk.Tk):
         self.__f_main = tk.Frame(self)
         self.__f_main.pack()
 
-        width = grid.get_columns_count()*(cell_size+gutter_size) + margin_size * 2
-        # height = grid.get_lines_count()*(cell_size+gutter_size) + margin_size * 2
+        l, c = grid.get_lines_count(), grid.get_columns_count()
+        width = c*cell_size + (c-1) * gutter_size + margin_size * 2
+        height = l*cell_size + (l-1) * gutter_size + margin_size * 2
         self.__c_draw = tk.Canvas(
-            self.__f_main, background='white', width=width, height=600)
+            self.__f_main, background='white', width=width, height=height)
         self.__c_draw.pack()
 
         self.__b_quit = tk.Button(
@@ -40,29 +41,24 @@ class MyApp(tk.Tk):
         x1 = self.__margin_size + self.__cell_size
         y1 = self.__margin_size + self.__cell_size
 
-        x_center = (x0 + x1) / 2
-        y_center = (y0 + y1) / 2
-
-        if (grid_lines):
-            for i in range(self.__grid.get_lines_count()):
-                for j in range(self.__grid.get_columns_count()):
-                    self.__c_draw.create_rectangle(
-                        x0, y0, x1, y1, fill=self.__COLORS["cell_background"])
-
-                    if (content):
-                        self.__c_draw.create_text(
-                            x_center, y_center, text=self.__grid.get_cell(i+j), fill=self.__COLORS["grid_text"])
-
-                    x0 += self.__cell_size + self.__gutter_size
-                    x1 += self.__cell_size + self.__gutter_size
-                    x_center = (x0 + x1) / 2
-
-                x0 = self.__margin_size
-                x1 = self.__margin_size + self.__cell_size
-                y0 += self.__cell_size + self.__gutter_size
-                y1 += self.__cell_size + self.__gutter_size
+        for i in range(self.__grid.get_lines_count()):
+            for j in range(self.__grid.get_columns_count()):
                 x_center = (x0 + x1) / 2
                 y_center = (y0 + y1) / 2
+                if (grid_lines):
+                    self.__c_draw.create_rectangle(
+                        x0, y0, x1, y1, fill=self.__COLORS["cell_background"])
+                if (content):
+                    self.__c_draw.create_text(
+                        x_center, y_center, text=self.__grid.get_cell(i+j), fill=self.__COLORS["grid_text"])
+
+                x0 += self.__cell_size + self.__gutter_size
+                x1 += self.__cell_size + self.__gutter_size
+
+            x0 = self.__margin_size
+            x1 = self.__margin_size + self.__cell_size
+            y0 += self.__cell_size + self.__gutter_size
+            y1 += self.__cell_size + self.__gutter_size
 
 
 if __name__ == "__main__":

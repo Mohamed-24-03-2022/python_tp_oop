@@ -56,9 +56,8 @@ class PlanetAlpha(Grid):
 
         for l in range(self.get_lines_count()):
             for c in range(self.get_columns_count()):
-                string += self.get_grid()[l][c]
+                string += str(self.get_grid()[l][c])
             string += '\n'
-
         return string
 
 
