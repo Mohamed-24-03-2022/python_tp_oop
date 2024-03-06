@@ -14,8 +14,9 @@ class Main:
         return self.__planet_alpha
 
     def add_element(self, cell_number, element):
-        if (isinstance(element, Element) or issubclass(type(element), Element)):
-            self.__planet_alpha.born(cell_number, element.__repr__())
+        for type in self.__AUTHORIZED_TYPES:
+            if (isinstance(element, type) or issubclass(type(element), type)):
+                self.__planet_alpha.born(cell_number, element.__repr__())
 
     def add_element_random(self, element):
         random_free_place = self.__planet_alpha.get_random_free_place()
