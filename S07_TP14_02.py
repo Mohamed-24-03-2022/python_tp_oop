@@ -1,10 +1,10 @@
 import random
 from S06_TP11 import PlanetAlpha
-from S07_TP14_01 import Lion, Cow, Water, Herb, Ground, Element
+from S07_TP14_01 import Lion, Cow, Water, Herb, Ground, Dragon
 
 
 class Main:
-    __AUTHORIZED_TYPES = {Element}
+    __AUTHORIZED_TYPES = {Lion, Cow, Water, Herb, Ground, Dragon}
 
     def __init__(self, planet_name, latitude_cells_count, longitude_cells_count):
         self.__planet_alpha = PlanetAlpha(
@@ -15,7 +15,7 @@ class Main:
 
     def add_element(self, cell_number, element):
         for type in self.__AUTHORIZED_TYPES:
-            if (isinstance(element, type) or issubclass(type(element), type)):
+            if (isinstance(element, type)):
                 self.__planet_alpha.born(cell_number, element.__repr__())
 
     def add_element_random(self, element):

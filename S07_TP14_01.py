@@ -9,7 +9,11 @@ class Element:
         return self.__char_repr
 
     def __eq__(self, other):
-        return other.__repr__() == self.__repr__() and issubclass(other.__class__, Element)
+        return other.__repr__() == self.__repr__() and isinstance(other, self.__class__)
+        # if isinstance(other, self.__class__):
+        #     return other.__repr__() == self.__repr__()
+        # else:
+        #     return False
 
 
 class Ground(Element):
