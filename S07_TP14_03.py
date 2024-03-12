@@ -83,16 +83,22 @@ class Main(tk.Tk):
         return res
 
     def draw_planet(self, grid_lines=True, content=True):
-        x0 = self.__margin_size
-        y0 = self.__margin_size
-
-        x1 = self.__margin_size + self.__cell_size
-        y1 = self.__margin_size + self.__cell_size
 
         for i in range(self.__planet_alpha.get_lines_count()):
+            y0 = self.__margin_size + i * \
+                (self.__cell_size + self.__gutter_size)
+            y1 = self.__margin_size + self.__cell_size + \
+                i * (self.__cell_size + self.__gutter_size)
+
             for j in range(self.__planet_alpha.get_columns_count()):
+                x0 = self.__margin_size + j * \
+                    (self.__cell_size + self.__gutter_size)
+                x1 = self.__margin_size + self.__cell_size + \
+                    j * (self.__cell_size + self.__gutter_size)
+
                 x_center = (x0 + x1) / 2
                 y_center = (y0 + y1) / 2
+
                 if (grid_lines):
                     self.__c_draw.create_rectangle(
                         x0, y0, x1, y1, fill=self.__COLORS["cell_background"])
@@ -103,14 +109,6 @@ class Main(tk.Tk):
 
                     self.__c_draw.create_text(
                         x_center, y_center, text=cell_content, fill=self.__COLORS["grid_text"])
-
-                x0 += self.__cell_size + self.__gutter_size
-                x1 += self.__cell_size + self.__gutter_size
-
-            x0 = self.__margin_size
-            x1 = self.__margin_size + self.__cell_size
-            y0 += self.__cell_size + self.__gutter_size
-            y1 += self.__cell_size + self.__gutter_size
 
         if (content):
             cells_number = self.__planet_alpha.get_lines_count(
