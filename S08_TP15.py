@@ -64,11 +64,9 @@ class PlanetTk(PlanetAlpha, tk.Canvas):
 
     def move_element(self, cell_number, new_cell_number):
 
-        # TODO  use tags to change text/color
-        # self.itemcget(f't_{cell_number}', "text")
-
         element = self.get_cell(cell_number)
         element_in_new_cell_number = self.get_cell(new_cell_number)
+
         # Move the element only if the new cell is free
         if (element_in_new_cell_number == self.get_ground() and element != self.get_ground()):
             self.die(cell_number)
@@ -99,10 +97,10 @@ class PlanetTk(PlanetAlpha, tk.Canvas):
                 cell_number = self.get_cell_number_from_coordinates(i, j)
                 cell_content = self.get_cell(cell_number)
 
-                self.create_rectangle(
-                    x0, y0, x1, y1, tags=(f'c_{cell_number}'))
-                self.create_text(x_center, y_center,
-                                 text=cell_content, tags=(f't_{cell_number}'))
+                if (self.__show_grid_lines):
+                    self.create_rectangle(x0, y0, x1, y1, tags=(f'c_{cell_number}'))
+
+                self.create_text(x_center, y_center, text=cell_content, tags=(f't_{cell_number}'))
                 self.lift(f't_{cell_number}')
                 self.itemconfigure(f't_{cell_number}', fill="dark blue")
 
@@ -118,6 +116,8 @@ class PlanetTk(PlanetAlpha, tk.Canvas):
         return PlanetAlpha.__str__(self)
 
 
+# TODO  use tags to change text/color
+# self.itemcget(f't_{cell_number}', "text")
 if __name__ == '__main__':
     root = tk.Tk()
     LINES_COUNT = 20
@@ -148,6 +148,7 @@ if __name__ == '__main__':
 
     app.move_element(2, 0)
     app.move_element(3, 1)
-    # app.draw()
+
+    app.draw()
     print(app)
-    # app.mainloop()
+    app.mainloop()

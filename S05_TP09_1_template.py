@@ -23,6 +23,9 @@ class Grid:
     def get_columns_count(self):
         return self.__columns_count
 
+    def get_cells_count(self):
+        return self.__lines_count * self.__columns_count
+
     def fill_random(self, values):
         """ Rempli la grille de valeurs aléatoires de la liste 'values'"""
         self.__grid = [[random.choice(values)

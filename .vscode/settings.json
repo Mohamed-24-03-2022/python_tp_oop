@@ -2,5 +2,6 @@
   "editor.tokenColorCustomizations": {
     "comments": "",
     "textMateRules": []
-  }
+  },
+  "autopep8.args": ["--max-line-length", "119"]
 }
